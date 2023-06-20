@@ -1,0 +1,92 @@
+<div class="bg0 m-t-23 p-b-140">
+    <div class="container">
+        <div class="flex-w flex-sb-m p-b-52">
+            <div class="flex-w flex-l-m filter-tope-group m-tb-10">
+                <a routerLink="/search/" routerLinkActive="how-active1"
+                    class="stext-106 cl6 hov1 bor3 trans-04 m-r-32 m-tb-5">All Products</a>
+
+                <a routerLink="/category/1" routerLinkActive="how-active1"
+                    class="stext-106 cl6 hov1 bor3 trans-04 m-r-32 m-tb-5">Rings</a>
+
+                <a routerLink="/category/2" routerLinkActive="how-active1"
+                    class="stext-106 cl6 hov1 bor3 trans-04 m-r-32 m-tb-5">Necklaces</a>
+            </div>
+
+
+
+            <div class="dis-none panel-search w-full p-t-10 p-b-15">
+                <div class="bor8 dis-flex p-l-15">
+                    <button class="size-113 flex-c-m fs-16 cl2 hov-cl1 trans-04">
+                        <i class="zmdi zmdi-search"></i>
+                    </button>
+
+                    <input class="mtext-107 cl2 size-114 plh2 p-r-15" type="text" name="search-product"
+                        placeholder="Search">
+                </div>
+            </div>
+        </div>
+
+        <div class="row isotope-grid d-flex justify-content-center align-items-center">
+            <div *ngFor="let tempProduct of products" class="col-sm-6 col-md-4 col-lg-3 p-b-35 isotope-item women">
+                <!-- Block2 -->
+                <div class="block2">
+                    <div class="block2-pic hov-img0">
+                        <img [src]="tempProduct.imageUrl" alt="IMG-PRODUCT">
+
+                        <a [routerLink]="'/products/' + tempProduct.id"
+                            class="block2-btn flex-c-m stext-103 cl2 size-102 bg0 bor2 hov-btn1 p-lr-15 trans-04 js-show-modal1">
+                            Product Page
+                        </a>
+                    </div>
+
+                    <div class="block2-txt flex-w flex-t p-t-14">
+                        <div class="block2-txt-child1 flex-col-l ">
+                            <a [routerLink]="'/products/' + tempProduct.id"
+                                class="stext-104 cl4 hov-cl1 trans-04 js-name-b2 p-b-6">
+                                {{ tempProduct.name }}
+                            </a>
+
+                            <span class="stext-105 cl3">
+                                {{ tempProduct.unitPrice | currency:'USD' }}
+                            </span>
+                        </div>
+
+                        <div class="flex-r p-t-3">
+                            <button (click)="addToCart(tempProduct)"
+                                class="flex-c-m stext-101 cl0 size-10b bg3 bor14 hov-btn3 p-lr-15 trans-04 pointer">
+                                Add to Cart
+                            </button>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div *ngIf="products?.length == 0" class="alert alert-warning col-md-12" role="alert">
+                No products were found.
+            </div>
+        </div>
+
+
+
+        <!-- BEGIN FOOTER -->
+
+        <div class="flex-c-m flex-w w-full p-t-45">
+            <ngb-pagination class="stext-101 cl2 plh3 pagination" [(page)]="thePageNumber" [pageSize]="thePageSize" [collectionSize]="theTotalElements"
+                [maxSize]="5" [boundaryLinks]="true" (pageChange)="listProducts()" style="color: #ff0203;">
+            </ngb-pagination>
+        </div>
+            <div class="flex-c-m flex-w w-full p-t-45">
+                <span class="stext-101 cl5 p-lr-15 trans-04">Page Size</span>
+                <select class="stext-101 cl2 plh3" #myPageSelect (change)="updatePageSize(myPageSelect.value)">
+                    <option selected="true">8</option>
+                    <option>16</option>
+                    <option>24</option>
+                    <option>32</option>
+                </select>
+            </div>
+
+        <!-- END FOOTER -->
+
+    </div>
+</div>

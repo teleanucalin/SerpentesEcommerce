@@ -1,0 +1,249 @@
+<section class="bg0 p-t-104 p-b-116">
+    <div class="container">
+        <form [formGroup]="checkoutFormGroup" (ngSubmit)="onSubmit()" class="flex-w flex-tr">
+            <div class="size-210 bor10 p-lr-70 p-t-55 p-b-70 p-lr-15-lg w-full-md" formGroupName="customer">
+
+                <h4 class="mtext-105 cl2 txt-center p-b-30">
+                    Customer
+                </h4>
+
+                <div class="bor8 m-b-20 how-pos4-parent">
+                    <input class="stext-111 cl2 plh3 size-116 p-lr-28 p-r-30" formControlName="firstName" type="text"
+                        placeholder="First Name">
+
+                </div>
+                <div *ngIf="firstName.invalid && (firstName.dirty || firstName.touched)"
+                    class="alert alert-danger stext-111 cl2 plh3 size-116 p-lr-28 p-r-30">
+                    <div *ngIf="firstName?.errors?.['required'] || firstName?.errors?.['notOnlyWhitespace']">
+                        First Name is required
+                    </div>
+
+                    <div *ngIf="firstName?.errors?.['minlength']">
+                        First Name must be at least 2 characters long
+                    </div>
+                </div>
+
+
+                <div class="bor8 m-b-20 how-pos4-parent">
+                    <input class="stext-111 cl2 plh3 size-116 p-lr-28 p-r-30" formControlName="lastName" type="text"
+                        placeholder="Last Name">
+
+                </div>
+                <div *ngIf="lastName.invalid && (lastName.dirty || lastName.touched)"
+                    class="alert alert-danger stext-111 cl2 plh3 size-116 p-lr-28 p-r-30">
+                    <div *ngIf="lastName?.errors?.['required'] || lastName?.errors?.['notOnlyWhitespace']">
+                        Last Name is required
+                    </div>
+
+                    <div *ngIf="lastName?.errors?.['minlength']">
+                        Last Name must be at least 2 characters long
+                    </div>
+                </div>
+
+
+                <div class="bor8 m-b-20 how-pos4-parent">
+                    <input class="stext-111 cl2 plh3 size-116 p-lr-28 p-r-30" formControlName="email" type="text"
+                        placeholder="Email">
+
+                </div>
+                <div *ngIf="email.invalid && (email.dirty || email.touched)"
+                    class="alert alert-danger stext-111 cl2 plh3 size-116 p-lr-28 p-r-30">
+                    <div *ngIf="email?.errors?.['required'] || email?.errors?.['notOnlyWhitespace']">
+                        Email is required
+                    </div>
+
+                    <div *ngIf="email?.errors?.['pattern']">
+                        Email must be a valid email address format
+                    </div>
+                </div>
+
+            </div>
+
+            <div class="size-210 bor10 flex-w flex-col-m p-lr-93 p-tb-30 p-lr-15-lg w-full-md" formGroupName="shippingAddress">
+                <h4 class="mtext-105 cl2 txt-center p-b-30">
+                    Shipping Address
+                </h4>
+
+                <div class="bor8 m-b-20 how-pos4-parent">
+                    <select class="stext-111 cl2 plh3 size-116 p-lr-28 p-r-30" formControlName="country"
+                        placeholder="Country" (change)="getCounty('shippingAddress')">
+                        <option *ngFor="let country of countries" [ngValue]="country">
+                            {{country.name}}
+                        </option>
+                    </select>
+
+                </div>
+                <div *ngIf="shippingAddressCountry.invalid && (shippingAddressCountry.dirty || shippingAddressCountry.touched)"
+                    class="alert alert-danger stext-111 cl2 plh3 size-116 p-lr-28 p-r-30">
+                    <div *ngIf="shippingAddressCountry?.errors?.['required']">
+                        Country is required
+                    </div>
+                </div>
+
+                <div class="bor8 m-b-20 how-pos4-parent">
+                    <input class="stext-111 cl2 plh3 size-116 p-lr-28 p-r-30" formControlName="street" type="text"
+                        placeholder="Street">
+
+                </div>
+                <div *ngIf="shippingAddressStreet.invalid && (shippingAddressStreet.dirty || shippingAddressStreet.touched)"
+                    class="alert alert-danger stext-111 cl2 plh3 size-116 p-lr-28 p-r-30">
+                    <div
+                        *ngIf="shippingAddressStreet?.errors?.['required'] || shippingAddressStreet?.errors?.['notOnlyWhitespace']">
+                        Street is required
+                    </div>
+                </div>
+
+                <div class="bor8 m-b-20 how-pos4-parent">
+                    <input class="stext-111 cl2 plh3 size-116 p-lr-28 p-r-30" formControlName="city" type="text"
+                        placeholder="City">
+
+                </div>
+                <div *ngIf="shippingAddressCity.invalid && (shippingAddressCity.dirty || shippingAddressCity.touched)" class="alert alert-danger stext-111 cl2 plh3 size-116 p-lr-28 p-r-30">
+                    <div *ngIf="shippingAddressCity?.errors?.['required'] || shippingAddressCity?.errors?.['notOnlyWhitespace']">
+                        City is required
+                    </div>
+                </div>
+
+                <div class="bor8 m-b-20 how-pos4-parent">
+                    <select class="stext-111 cl2 plh3 size-116 p-lr-28 p-r-30" formControlName="county"
+                        placeholder="County">
+                        <option *ngFor="let county of shippingAddressCounties" [ngValue]="county">
+                            {{county.name}}
+                        </option>
+                    </select>
+
+                </div>
+                <div *ngIf="shippingAddressCounty.invalid && (shippingAddressCounty.dirty || shippingAddressCounty.touched)"
+                    class="alert alert-danger stext-111 cl2 plh3 size-116 p-lr-28 p-r-30">
+                    <div *ngIf="shippingAddressCounty?.errors?.['required']">
+                        County is required
+                    </div>
+                </div>
+
+                <div class="bor8 m-b-20 how-pos4-parent">
+                    <input class="stext-111 cl2 plh3 size-116 p-lr-28 p-r-30" formControlName="zipCode" type="text"
+                        placeholder="Zip Code">
+
+                </div>
+                <div *ngIf="shippingAddressZipCode.invalid && (shippingAddressZipCode.dirty || shippingAddressZipCode.touched)" class="alert alert-danger stext-111 cl2 plh3 size-116 p-lr-28 p-r-30">
+                    <div *ngIf="shippingAddressZipCode?.errors?.['required'] || shippingAddressZipCode?.errors?.['notOnlyWhitespace']">
+                        Zip Code is required
+                    </div>
+                </div>
+
+                <div class="input-space">
+                    <label class="au-checkbox">
+                        <input type="checkbox"
+                            (change)="copyShippingAddressToBillingAddress($any($event).target.value)">
+                        <span class="au-checkmark"></span>Billing Address same as Shipping Address
+                    </label>
+                </div>
+            </div>
+
+            <div class="size-210 bor10 flex-w flex-col-m p-lr-93 p-tb-30 p-lr-15-lg w-full-md"
+                formGroupName="billingAddress">
+
+                <h4 class="mtext-105 cl2 txt-center p-b-30">
+                    Billing Address
+                </h4>
+
+                <div class="bor8 m-b-20 how-pos4-parent">
+                    <select class="stext-111 cl2 plh3 size-116 p-lr-28 p-r-30" formControlName="country" type="text"
+                        placeholder="Country" (change)="getCounty('billingAddress')">
+                        <option *ngFor="let country of countries" [ngValue]="country">
+                            {{country.name}}
+                        </option>
+                    </select>
+
+                </div>
+                <div *ngIf="shippingAddressCountry.invalid && (shippingAddressCountry.dirty || shippingAddressCountry.touched)"
+                    class="alert alert-danger stext-111 cl2 plh3 size-116 p-lr-28 p-r-30">
+                    <div *ngIf="shippingAddressCountry?.errors?.['required']">
+                        Country is required
+                    </div>
+                </div>
+
+                <div class="bor8 m-b-20 how-pos4-parent">
+                    <input class="stext-111 cl2 plh3 size-116 p-lr-28 p-r-30" formControlName="street" type="text"
+                        placeholder="Street">
+
+                </div>
+                <div *ngIf="shippingAddressStreet.invalid && (shippingAddressStreet.dirty || shippingAddressStreet.touched)"
+                    class="alert alert-danger stext-111 cl2 plh3 size-116 p-lr-28 p-r-30">
+                    <div
+                        *ngIf="shippingAddressStreet?.errors?.['required'] || shippingAddressStreet?.errors?.['notOnlyWhitespace']">
+                        Street is required
+                    </div>
+                </div>
+
+                <div class="bor8 m-b-20 how-pos4-parent">
+                    <input class="stext-111 cl2 plh3 size-116 p-lr-28 p-r-30" formControlName="city" type="text"
+                        placeholder="City">
+
+                </div>
+                <div *ngIf="shippingAddressCity.invalid && (shippingAddressCity.dirty || shippingAddressCity.touched)" class="alert alert-danger stext-111 cl2 plh3 size-116 p-lr-28 p-r-30">
+                    <div *ngIf="shippingAddressCity?.errors?.['required'] || shippingAddressCity?.errors?.['notOnlyWhitespace']">
+                        City is required
+                    </div>
+                </div>
+
+                <div class="bor8 m-b-20 how-pos4-parent">
+                    <select class="stext-111 cl2 plh3 size-116 p-lr-28 p-r-30" formControlName="county" type="text"
+                        placeholder="County">
+                        <option *ngFor="let county of shippingAddressCounties" [ngValue]="county">
+                            {{county.name}}
+                        </option>
+                    </select>
+
+
+                </div>
+                <div *ngIf="shippingAddressCounty.invalid && (shippingAddressCounty.dirty || shippingAddressCounty.touched)"
+                    class="alert alert-danger stext-111 cl2 plh3 size-116 p-lr-28 p-r-30">
+                    <div *ngIf="shippingAddressCounty?.errors?.['required']">
+                        County is required
+                    </div>
+                </div>
+
+                <div class="bor8 m-b-20 how-pos4-parent">
+                    <input class="stext-111 cl2 plh3 size-116 p-lr-28 p-r-30" formControlName="zipCode" type="text"
+                        placeholder="Zip Code">
+
+                </div>
+                <div *ngIf="shippingAddressZipCode.invalid && (shippingAddressZipCode.dirty || shippingAddressZipCode.touched)" class="alert alert-danger stext-111 cl2 plh3 size-116 p-lr-28 p-r-30">
+                    <div *ngIf="shippingAddressZipCode?.errors?.['required'] || shippingAddressZipCode?.errors?.['notOnlyWhitespace']">
+                        Zip Code is required
+                    </div>
+                </div>
+
+            </div>
+
+            <div class="size-210 bor10 flex-w flex-col-m p-lr-93 p-tb-30 p-lr-15-lg w-full-md" formGroupName="creditCard">
+                <h4 class="mtext-105 cl2 txt-center p-b-30">
+                    Credit or Debit Card
+                </h4>
+
+                <div id="card-element">
+                </div>
+                
+                <div id="card-errors" class="displayError.textContent!='': 'alert alert-danger stext-111 cl2 plh3 size-116'"></div>
+
+                <br>
+
+                <div>
+                    <h3 class="mtext-105 cl2 txt-center p-b-30">Review Your Order</h3>
+                    <p class="stext-115 ">Total Quantity:     {{totalQuantity}}</p>
+                    <p class="stext-115 ">Shipping:     FREE</p>
+                    <p class="stext-115 ">Total Price:     {{totalPrice | currency:'USD'}}</p>
+    
+                    
+    
+                    <button type="submit"
+                        class="flex-c-m stext-101 cl0 size-121 bg3 bor1 hov-btn3 p-lr-15 trans-04 pointer" [disabled]="isDisabled">
+                        Submit
+                    </button>
+                </div>
+            </div>
+
+        </form>
+    </div>
+</section>

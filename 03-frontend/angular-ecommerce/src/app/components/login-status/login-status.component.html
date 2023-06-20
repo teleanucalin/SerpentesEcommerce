@@ -1,0 +1,13 @@
+<div class="right-top-bar flex-w h-full">
+    <a *ngIf="authService.isLoggedIn && userFullName" href="#" class="flex-c-m trans-04 p-lr-25 unclickable">
+        Welcome back, {{ userFullName }}!
+    </a>
+
+    <a *ngIf="!authService.isLoggedIn" routerLink="/sign-in" class="flex-c-m trans-04 p-lr-25" style="text-decoration: none;">Login</a>
+
+    <a *ngIf="authService.isLoggedIn" (click)="logout()" routerLink="/products" class="flex-c-m trans-04 p-lr-25" style="cursor: pointer; text-decoration: none;">Logout</a>
+
+    <a *ngIf="authService.isLoggedIn" routerLink="/members" class="flex-c-m trans-04 p-lr-25" style="text-decoration: none;">Member</a>
+
+    <a *ngIf="authService.isLoggedIn" routerLink="/order-history" class="flex-c-m trans-04 p-lr-25" style="text-decoration: none;">Orders</a>
+</div>
